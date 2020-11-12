@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
 import { User } from 'src/app/core/models/user.model';
+import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-profile',
@@ -9,6 +10,8 @@ import { User } from 'src/app/core/models/user.model';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
+
+  faCalendarAlt = faCalendarAlt;
 
   @Input() user: User;
   @Input() loading: boolean;
@@ -20,6 +23,8 @@ export class ProfileComponent implements OnInit {
   minuteStep = 15;
   secondStep = 30;
 
+  error = false;
+
   constructor() { }
 
   ngOnInit(): void {
@@ -27,6 +32,17 @@ export class ProfileComponent implements OnInit {
 
   onSaveProfile() {
     this.saveProfile.emit(this.user);
+  }
+
+  get minutes() {
+    const minimum = 3;
+    const maximum = 30;
+
+    return new Array(maximum - 2).fill(null).map((_, index) => index + minimum);
+  }
+
+  get seconds() {
+    return new Array(60).fill(null).map((_, index) => index);
   }
 
 }

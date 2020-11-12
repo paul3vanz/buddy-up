@@ -3,7 +3,10 @@
 
   <p>Tell us a little about you so we can help you find a buddy...</p>
 
-  <!-- <pre class="bg-light p-4">{{ user | json }}</pre> -->
+  <div *ngIf="error" class="mt-5 alert alert-danger">
+    <strong class="d-block mb-2 h4">Sorry, there was a problem</strong>
+    Please review the form and try again.
+  </div>
 </div>
 
 <div class="bg-light">
@@ -45,14 +48,14 @@
       placeholder="Email address"
     />
 
-    <label for="club" class="sr-only">Club</label>
+    <label for="club" class="sr-only">Club (optional)</label>
 
     <input
       type="text"
       id="club"
       name="club"
       class="form-control mb-2"
-      placeholder="Club"
+      placeholder="Club (optional)"
     />
 
     <div class="form-row">
@@ -71,16 +74,31 @@
           </label>
         </div>
       </div>
+
       <div class="col">
         <label for="dob" class="sr-only">Date of birth</label>
 
-        <input
-          type="text"
-          id="dob"
-          name="dob"
-          class="form-control mb-2"
-          placeholder="Date of birth (DD/MM/YYYY)"
-        />
+        <div class="input-group">
+          <input
+            type="text"
+            id="dob"
+            name="dob"
+            class="form-control"
+            placeholder="Date of birth (DD/MM/YYYY)"
+            ngbDatepicker
+            [minDate]="{ year: 1900, month: 1, day: 1 }"
+            #d="ngbDatepicker"
+          />
+          <div class="input-group-append">
+            <button
+              class="btn btn-outline-secondary calendar"
+              (click)="d.toggle()"
+              type="button"
+            >
+              <fa-icon [icon]="faCalendarAlt"></fa-icon>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -97,7 +115,7 @@
       id="location"
       name="location"
       class="form-control mb-4"
-      placeholder="Location"
+      placeholder="Enter your postcode..."
     />
   </div>
 </div>
@@ -106,43 +124,46 @@
   <div class="container py-5">
     <h2 class="h3 mb-3 font-weight-normal">Preferred pace</h2>
 
-    <label for="paceFrom" class="sr-only">Fastest pace</label>
+    <div class="form-row mb-3">
+      <fieldset class="col-sm-2">
+        <legend class="h5">Fastest pace</legend>
 
-    <input
-      type="text"
-      id="paceFrom"
-      name="paceFrom"
-      class="form-control mb-4"
-      placeholder="Fastest pace"
-    />
+        <label for="paceFromMinute" class="sr-only">Minutes</label>
 
-    <ngb-timepicker
-      [(ngModel)]="time"
-      [seconds]="true"
-      [minuteStep]="minuteStep"
-      [secondStep]="secondStep"
-    ></ngb-timepicker>
-
-    <div class="row">
-      <div class="col-sm-3">
-        <label for="changeMinuteStep">Minute Step</label>
-        <input
-          id="changeMinuteStep"
-          type="number"
-          class="form-control form-control-sm"
-          [(ngModel)]="minuteStep"
-        />
-      </div>
-      <div class="col-sm-3">
-        <label for="changeSecondStep">Second Step</label>
-        <input
-          id="changeSecondStep"
-          type="number"
-          class="form-control form-control-sm"
-          [(ngModel)]="secondStep"
-        />
+        <select id="paceFromMinute" type="number" class="form-control">
+          <option *ngFor="let minute of minutes">{{ minute }} min</option>
+        </select>
+      </fieldset>
+      <div class="col-sm-2 seconds">
+        <label for="paceFromSecond" class="sr-only">Seconds</label>
+        <select id="paceFromSecond" type="number" class="form-control">
+          <option *ngFor="let second of seconds">{{ second }} sec</option>
+        </select>
       </div>
     </div>
-    <hr />
+
+    <div class="form-row">
+      <fieldset class="col-sm-2">
+        <legend class="h5">Slowest pace</legend>
+
+        <label for="paceToMinute" class="sr-only">Minutes</label>
+
+        <select id="paceToMinute" type="number" class="form-control">
+          <option *ngFor="let minute of minutes">{{ minute }} min</option>
+        </select>
+      </fieldset>
+      <div class="col-sm-2 seconds">
+        <label for="paceToSecond" class="sr-only">Seconds</label>
+        <select id="paceToSecond" type="number" class="form-control">
+          <option *ngFor="let second of seconds">{{ second }} sec</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="text-center">
+      <button class="btn btn-lg btn-dark mt-5" (click)="onSaveProfile()">
+        Save and continue
+      </button>
+    </div>
   </div>
 </div>

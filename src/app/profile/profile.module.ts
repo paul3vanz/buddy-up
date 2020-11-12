@@ -2,6 +2,7 @@ import { NgbModule, NgbTimepickerModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AuthGuard } from '../core/guards/auth.guard';
 import { CommonModule } from '@angular/common';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
@@ -27,6 +28,8 @@ const routes = [
     FormsModule,
     HttpClientModule,
     RouterModule.forChild(routes),
+
+    FontAwesomeModule,
     NgbModule,
     NgbTimepickerModule,
   ],

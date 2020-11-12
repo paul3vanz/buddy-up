@@ -1,0 +1,44 @@
+<div class="container">
+  <img class="logo mb-4" src="/assets/logo.png" />
+
+  <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+
+  <div *ngIf="error" class="alert alert-danger" role="alert">
+    There was a problem signing in. Please check your details and try again.
+  </div>
+
+  <label for="email" class="sr-only">Email address</label>
+
+  <input
+    [(ngModel)]="credentials.email"
+    type="email"
+    id="email"
+    name="email"
+    [disabled]="loading"
+    class="form-control email"
+    placeholder="Email address"
+  />
+
+  <label for="password" class="sr-only">Password</label>
+
+  <input
+    [(ngModel)]="credentials.password"
+    type="password"
+    id="password"
+    name="password"
+    [disabled]="loading"
+    class="form-control mb-3 password"
+    placeholder="Password"
+  />
+
+  <div class="checkbox mb-3">
+    <label><input type="checkbox" value="remember-me" /> Remember me</label>
+  </div>
+
+  <button class="btn btn-lg btn-dark btn-block" (click)="onSignIn()">
+    <ng-container *ngIf="!loading">Sign in</ng-container>
+    <ng-container *ngIf="loading">Please wait...</ng-container>
+  </button>
+
+  <p class="mt-5 mb-3 text-muted">&copy; 2020</p>
+</div>

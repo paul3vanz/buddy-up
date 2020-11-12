@@ -1,0 +1,36 @@
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.container {
+  display: block;
+  text-align: center;
+  width: 330px;
+  max-width: 330px;
+}
+
+.logo {
+  border-radius: 5px;
+  width: 80px;
+  height: 80px;
+}
+
+.email {
+  &:focus {
+    z-index: 2;
+  }
+}
+
+.email {
+  margin-bottom: -1px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.password {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}

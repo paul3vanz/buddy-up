@@ -1,0 +1,140 @@
+<div class="container py-5">
+  <h1 class="mb-3">Your profile</h1>
+
+  <p>Tell us a little about you so we can help you find a buddy...</p>
+
+  <!-- <pre class="bg-light p-4">{{ user | json }}</pre> -->
+</div>
+
+<div class="bg-light">
+  <div class="container py-5">
+    <h2 class="h3 mb-3 font-weight-normal">Personal details</h2>
+
+    <div class="form-row mb-2">
+      <div class="col">
+        <label for="firstName" class="sr-only">First name</label>
+
+        <input
+          type="text"
+          id="firstName"
+          name="firstName"
+          class="form-control"
+          placeholder="First name"
+        />
+      </div>
+      <div class="col">
+        <label for="lastName" class="sr-only">Last name</label>
+
+        <input
+          type="text"
+          id="lastName"
+          name="lastName"
+          class="form-control"
+          placeholder="Last name"
+        />
+      </div>
+    </div>
+
+    <label for="email" class="sr-only">Email address</label>
+
+    <input
+      type="text"
+      id="email"
+      name="email"
+      class="form-control mb-2"
+      placeholder="Email address"
+    />
+
+    <label for="club" class="sr-only">Club</label>
+
+    <input
+      type="text"
+      id="club"
+      name="club"
+      class="form-control mb-2"
+      placeholder="Club"
+    />
+
+    <div class="form-row">
+      <div class="col">
+        <div
+          class="btn-group btn-group-toggle mb-4"
+          ngbRadioGroup
+          name="gender"
+          [(ngModel)]="user.gender"
+        >
+          <label ngbButtonLabel class="btn-secondary">
+            <input ngbButton type="radio" value="M" /> Male
+          </label>
+          <label ngbButtonLabel class="btn-secondary">
+            <input ngbButton type="radio" value="W" /> Female
+          </label>
+        </div>
+      </div>
+      <div class="col">
+        <label for="dob" class="sr-only">Date of birth</label>
+
+        <input
+          type="text"
+          id="dob"
+          name="dob"
+          class="form-control mb-2"
+          placeholder="Date of birth (DD/MM/YYYY)"
+        />
+      </div>
+    </div>
+
+    <h2 class="h3 mb-3 font-weight-normal">Where you are</h2>
+
+    <label for="location" class="sr-only">Location</label>
+
+    <input
+      type="text"
+      id="location"
+      name="location"
+      class="form-control mb-4"
+      placeholder="Location"
+    />
+
+    <h2 class="h3 mb-3 font-weight-normal">Preferred pace</h2>
+
+    <label for="paceFrom" class="sr-only">Fastest pace</label>
+
+    <input
+      type="text"
+      id="paceFrom"
+      name="paceFrom"
+      class="form-control mb-4"
+      placeholder="Fastest pace"
+    />
+
+    <ngb-timepicker
+      [(ngModel)]="time"
+      [seconds]="true"
+      [minuteStep]="minuteStep"
+      [secondStep]="secondStep"
+    ></ngb-timepicker>
+
+    <div class="row">
+      <div class="col-sm-3">
+        <label for="changeMinuteStep">Minute Step</label>
+        <input
+          id="changeMinuteStep"
+          type="number"
+          class="form-control form-control-sm"
+          [(ngModel)]="minuteStep"
+        />
+      </div>
+      <div class="col-sm-3">
+        <label for="changeSecondStep">Second Step</label>
+        <input
+          id="changeSecondStep"
+          type="number"
+          class="form-control form-control-sm"
+          [(ngModel)]="secondStep"
+        />
+      </div>
+    </div>
+    <hr />
+  </div>
+</div>

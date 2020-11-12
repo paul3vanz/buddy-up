@@ -1,0 +1,5 @@
+<app-login
+  [credentials]="credentials"
+  [loading]="loading$ | async"
+  (signIn)="onSignIn($event)"
+></app-login>

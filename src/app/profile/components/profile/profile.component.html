@@ -58,7 +58,7 @@
     <div class="form-row">
       <div class="col">
         <div
-          class="btn-group btn-group-toggle mb-4"
+          class="btn-group btn-group-toggle btn-block mb-4"
           ngbRadioGroup
           name="gender"
           [(ngModel)]="user.gender"
@@ -83,8 +83,12 @@
         />
       </div>
     </div>
+  </div>
+</div>
 
-    <h2 class="h3 mb-3 font-weight-normal">Where you are</h2>
+<div class="bg-dark">
+  <div class="container py-5">
+    <h2 class="h3 mb-3 font-weight-normal text-light">Location</h2>
 
     <label for="location" class="sr-only">Location</label>
 
@@ -95,7 +99,11 @@
       class="form-control mb-4"
       placeholder="Location"
     />
+  </div>
+</div>
 
+<div class="bg-light">
+  <div class="container py-5">
     <h2 class="h3 mb-3 font-weight-normal">Preferred pace</h2>
 
     <label for="paceFrom" class="sr-only">Fastest pace</label>

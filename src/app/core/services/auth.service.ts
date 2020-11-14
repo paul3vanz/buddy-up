@@ -1,67 +1,72 @@
-import { BehaviorSubject, of } from 'rxjs';
-import { delay, take } from 'rxjs/operators';
+import { LoadingState, LoadingStates } from "../models/loading-state.model";
 
-import { Credentials } from '../models/credentials.model';
-import { Gender } from '../enums/gender.enum';
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { User } from '../models/user.model';
+import { Account } from "../models/account.model";
+import { Auth } from "aws-amplify";
+import { BehaviorSubject } from "rxjs";
+import { Credentials } from "../models/credentials.model";
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: "root" })
 export class AuthService {
+  private readonly _account = new BehaviorSubject<Account>(null);
+  private readonly _loadingState = new BehaviorSubject<LoadingState>(
+    LoadingStates.INIT
+  );
 
-  mockUser: User = {
-    id: 'abc123',
-    firstName: 'Paul',
-    lastName: 'Evans',
-    gender: Gender.Male,
-    email: 'paul3vanz@gmail.com',
-    clubId: null,
-  };
-  
-  private readonly _user = new BehaviorSubject<User>(this.mockUser);
-  private readonly _loading = new BehaviorSubject<boolean>(null);
+  readonly account$ = this._account.asObservable();
+  readonly loadingState$ = this._loadingState.asObservable();
 
-  readonly user$ = this._user.asObservable();
-  readonly loading$ = this._loading.asObservable();
+  get account(): Account {
+    return this._account.getValue();
+  }
+
+  set account(account: Account) {
+    this._account.next(account);
+  }
+
+  get loadingState(): LoadingState {
+    return this._loadingState.getValue();
+  }
+
+  set loadingState(loadingState: LoadingState) {
+    this._loadingState.next(loadingState);
+  }
+
+  signIn(credentials: Credentials): void {
+    this.loadingState = LoadingStates.LOADING;
+
+    Auth.signIn(credentials.email, credentials.password)
+      .then((account) => (this.account = account))
+      .catch((error) => (this.loadingState = { error }))
+      .finally(() => (this.loadingState = LoadingStates.LOADED));
+  }
+
+  signOut(): void {
+    this.loadingState = LoadingStates.LOADING;
+
+    Auth.signOut()
+      .then(() => (this.account = null))
+      .catch((error) => (this.loadingState = { error }))
+      .finally(() => (this.loadingState = LoadingStates.LOADED));
+  }
+
+  check() {
+    this.loadingState = LoadingStates.LOADING;
+
+    Auth.currentUserInfo()
+      .then(({ attributes }) => {
+        this.account = {
+          userId: attributes.sub,
+          email: attributes.email,
+          emailVerified: attributes.email_verified,
+        };
+      })
+      .catch((error) => (this.loadingState = { error }))
+      .finally(() => (this.loadingState = LoadingStates.LOADED));
+  }
 
   constructor(private httpClient: HttpClient) {
-    console.log('service constructor');
-
-    console.log('service init', this._user.getValue());
-  }
-
-  get user(): User {
-    return this._user.getValue();
-  }
-
-  set user(user: User) {
-    this._user.next(user);
-  }
-
-  get loading(): boolean {
-    return this._loading.getValue();
-  }
-
-  set loading(loading: boolean) {
-    this._loading.next(loading);
-  }
-  
-  signIn(credentials: Credentials): void {    
-    this.loading = true;
-
-    of(this.mockUser).pipe(
-      delay(1000),
-      take(1)
-    ).subscribe((user) => {
-      this.user = user;
-      this.loading = false;
-    });
-  }
-
-  signOut() {
-    this.loading = true;
-
-    this.user = null;
+    this.check();
   }
 }

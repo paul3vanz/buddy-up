@@ -1,4 +1,5 @@
 <app-profile
   [user]="user$ | async"
+  [loadingState]="loadingState$ | async"
   (saveProfile)="onSaveProfile($event)"
 ></app-profile>

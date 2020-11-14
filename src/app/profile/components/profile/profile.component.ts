@@ -1,34 +1,33 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 
-import { NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
-import { User } from 'src/app/core/models/user.model';
-import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
+import { LoadingState } from "src/app/core/models/loading-state.model";
+import { NgbTimeStruct } from "@ng-bootstrap/ng-bootstrap";
+import { User } from "src/app/core/models/user.model";
+import { faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
 
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss']
+  selector: "app-profile",
+  templateUrl: "./profile.component.html",
+  styleUrls: ["./profile.component.scss"],
 })
 export class ProfileComponent implements OnInit {
-
   faCalendarAlt = faCalendarAlt;
 
   @Input() user: User;
-  @Input() loading: boolean;
-  
+  @Input() loadingState: LoadingState;
+
   @Output() saveProfile = new EventEmitter<User>();
 
-  time: NgbTimeStruct = {hour: 13, minute: 30, second: 0};
+  time: NgbTimeStruct = { hour: 13, minute: 30, second: 0 };
   hourStep = 1;
   minuteStep = 15;
   secondStep = 30;
 
   error = false;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   onSaveProfile() {
     this.saveProfile.emit(this.user);
@@ -44,5 +43,4 @@ export class ProfileComponent implements OnInit {
   get seconds() {
     return new Array(60).fill(null).map((_, index) => index);
   }
-
 }

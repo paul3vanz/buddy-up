@@ -1,27 +1,31 @@
-import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { map, skip, skipWhile, take, tap, withLatestFrom } from 'rxjs/operators';
+import { CanActivate, CanActivateChild, Router } from "@angular/router";
+import { map, skipWhile, withLatestFrom } from "rxjs/operators";
 
-import { AuthService } from '../services/auth.service';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { AuthService } from "../services/auth.service";
+import { Injectable } from "@angular/core";
+import { LoadingStates } from "../models/loading-state.model";
+import { Observable } from "rxjs";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class AuthGuard implements CanActivate, CanActivateChild {
   canActivate(): Observable<boolean> {
-    return this.authService.user$.pipe(
-      withLatestFrom(this.authService.loading$),
-      skipWhile(([ user, loading ]) => loading && !user),
-      map(([ user ]) => {
-        if (user?.id) {
+    return this.authService.account$.pipe(
+      withLatestFrom(this.authService.loadingState$),
+      skipWhile(
+        ([account, loading]) => loading === LoadingStates.LOADING && !account
+      ),
+      map(([account]) => {
+        if (account?.userId) {
           return true;
         }
-        
-        this.router.navigate(['/login']);
-        
+
+        this.router.navigate(["/login"]);
+
         return true;
-    }));
+      })
+    );
   }
 
   canActivateChild() {

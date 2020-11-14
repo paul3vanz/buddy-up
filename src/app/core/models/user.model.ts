@@ -1,18 +1,15 @@
-import { Activity } from '../enums/activity.enum';
-import { Gender } from '../enums/gender.enum';
-import { Pace } from './pace.model';
-import { Range } from './range.model';
+import { Gender } from "../enums/gender.enum";
+import { Location } from "./location.model";
+import { Preferences } from "./preferences.model";
 
 export interface User {
-    id: string;
-    firstName: string;
-    lastName: string;
-    gender: Gender;
-    email: string;
-    clubId: string,
-    preferences?: {
-        activity: Activity,
-        distance: Range<number>,
-        pace: Range<Pace>,
-    }
+  id: string;
+  firstName: string;
+  lastName: string;
+  gender: Gender;
+  dateOfBirth: string;
+  email: string;
+  clubId: string;
+  location: Location;
+  preferences: Preferences;
 }

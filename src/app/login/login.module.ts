@@ -1,3 +1,4 @@
+import { AmplifyUIAngularModule } from '@aws-amplify/ui-angular';
 import { AuthService } from '../core/services/auth.service';
 import { CommonModule } from '@angular/common';
 import { CoreModule } from '../core/core.module';
@@ -22,6 +23,8 @@ const routes = [
     FormsModule,
     HttpClientModule,
     RouterModule.forChild(routes),
+
+    AmplifyUIAngularModule,
   ],
   providers: [
   ]

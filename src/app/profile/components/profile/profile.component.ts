@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 
+import { FormGroup } from "@angular/forms";
 import { LoadingState } from "src/app/core/models/loading-state.model";
 import { NgbTimeStruct } from "@ng-bootstrap/ng-bootstrap";
 import { User } from "src/app/core/models/user.model";
@@ -15,6 +16,7 @@ export class ProfileComponent implements OnInit {
 
   @Input() user: User;
   @Input() loadingState: LoadingState;
+  @Input() form: FormGroup;
 
   @Output() saveProfile = new EventEmitter<User>();
 

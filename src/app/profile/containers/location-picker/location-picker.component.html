@@ -1,0 +1,19 @@
+<label for="location" class="sr-only">Location</label>
+
+<input
+  type="text"
+  id="location"
+  name="location"
+  class="form-control mb-2"
+  placeholder="Enter your postcode..."
+  [value]="location?.displayName"
+/>
+
+<p class="mb-4">
+  <button (click)="useCurrentLocationClick()" class="btn btn-outline-light">
+    <fa-icon [icon]="faLocationArrow" class="pr-1"></fa-icon>
+    Use my current location
+  </button>
+</p>
+
+<pre class="text-light">{{ location | json }}</pre>

@@ -1,174 +1,168 @@
 <ng-container *ngIf="loadingState === 'LOADED'">
-  <div class="container py-5">
-    <h1 class="mb-3">Your profile</h1>
-
-    <p>Tell us a little about you so we can help you find a buddy...</p>
-
-    <div *ngIf="error" class="mt-5 alert alert-danger">
-      <strong class="d-block mb-2 h4">Sorry, there was a problem</strong>
-      Please review the form and try again.
-    </div>
-  </div>
-
-  <div class="bg-light">
+  <div [formGroup]="form">
     <div class="container py-5">
-      <h2 class="h3 mb-3 font-weight-normal">Personal details</h2>
+      <h1 class="mb-3">Your profile</h1>
 
-      <div class="form-row mb-2">
-        <div class="col">
-          <label for="firstName" class="sr-only">First name</label>
+      <p>Tell us a little about you so we can help you find a buddy...</p>
 
-          <input
-            type="text"
-            id="firstName"
-            name="firstName"
-            class="form-control"
-            placeholder="First name"
-          />
-        </div>
-        <div class="col">
-          <label for="lastName" class="sr-only">Last name</label>
-
-          <input
-            type="text"
-            id="lastName"
-            name="lastName"
-            class="form-control"
-            placeholder="Last name"
-          />
-        </div>
+      <div *ngIf="error" class="mt-5 alert alert-danger">
+        <strong class="d-block mb-2 h4">Sorry, there was a problem</strong>
+        Please review the form and try again.
       </div>
+    </div>
 
-      <label for="email" class="sr-only">Email address</label>
+    <div class="bg-light">
+      <div class="container py-5">
+        <h2 class="h3 mb-3 font-weight-normal">Personal details</h2>
 
-      <input
-        type="text"
-        id="email"
-        name="email"
-        class="form-control mb-2"
-        placeholder="Email address"
-      />
+        <div class="form-row mb-2">
+          <div class="col">
+            <label for="firstName" class="sr-only">First name</label>
 
-      <label for="club" class="sr-only">Club (optional)</label>
+            <input
+              type="text"
+              id="firstName"
+              name="firstName"
+              class="form-control"
+              placeholder="First name"
+              formControlName="firstName"
+            />
+          </div>
+          <div class="col">
+            <label for="lastName" class="sr-only">Last name</label>
 
-      <input
-        type="text"
-        id="club"
-        name="club"
-        class="form-control mb-2"
-        placeholder="Club (optional)"
-      />
-
-      <div class="form-row">
-        <div class="col">
-          <div
-            class="btn-group btn-group-toggle btn-block mb-4"
-            ngbRadioGroup
-            name="gender"
-            [(ngModel)]="user.gender"
-          >
-            <label ngbButtonLabel class="btn-secondary">
-              <input ngbButton type="radio" value="M" /> Male
-            </label>
-            <label ngbButtonLabel class="btn-secondary">
-              <input ngbButton type="radio" value="W" /> Female
-            </label>
+            <input
+              type="text"
+              id="lastName"
+              name="lastName"
+              class="form-control"
+              placeholder="Last name"
+              formControlName="lastName"
+            />
           </div>
         </div>
 
-        <div class="col">
-          <label for="dob" class="sr-only">Date of birth</label>
+        <label for="email" class="sr-only">Email address</label>
 
-          <div class="input-group">
-            <input
-              type="text"
-              id="dob"
-              name="dob"
-              class="form-control"
-              placeholder="Date of birth (DD/MM/YYYY)"
-              ngbDatepicker
-              [minDate]="{ year: 1900, month: 1, day: 1 }"
-              #d="ngbDatepicker"
-            />
-            <div class="input-group-append">
-              <button
-                class="btn btn-outline-secondary calendar"
-                (click)="d.toggle()"
-                type="button"
-              >
-                <fa-icon [icon]="faCalendarAlt"></fa-icon>
-              </button>
+        <input
+          type="text"
+          id="email"
+          name="email"
+          class="form-control mb-2"
+          placeholder="Email address"
+        />
+
+        <label for="club" class="sr-only">Club (optional)</label>
+
+        <input
+          type="text"
+          id="club"
+          name="club"
+          class="form-control mb-2"
+          placeholder="Club (optional)"
+        />
+
+        <div class="form-row">
+          <div class="col">
+            <div
+              class="btn-group btn-group-toggle btn-block mb-4"
+              ngbRadioGroup
+              name="gender"
+              formControlName="gender"
+            >
+              <label ngbButtonLabel class="btn-secondary">
+                <input ngbButton type="radio" value="M" /> Male
+              </label>
+              <label ngbButtonLabel class="btn-secondary">
+                <input ngbButton type="radio" value="W" /> Female
+              </label>
+            </div>
+          </div>
+
+          <div class="col">
+            <label for="dob" class="sr-only">Date of birth</label>
+
+            <div class="input-group">
+              <input
+                type="text"
+                id="dob"
+                name="dob"
+                class="form-control"
+                placeholder="Date of birth (DD/MM/YYYY)"
+                ngbDatepicker
+                [minDate]="{ year: 1900, month: 1, day: 1 }"
+                #d="ngbDatepicker"
+                formControlName="dateOfBirth"
+              />
+              <div class="input-group-append">
+                <button
+                  class="btn btn-outline-secondary calendar"
+                  (click)="d.toggle()"
+                  type="button"
+                >
+                  <fa-icon [icon]="faCalendarAlt"></fa-icon>
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="bg-dark">
-    <div class="container py-5">
-      <h2 class="h3 mb-3 font-weight-normal text-light">Location</h2>
+    <div class="bg-dark">
+      <div class="container py-5">
+        <h2 class="h3 mb-3 font-weight-normal text-light">Location</h2>
 
-      <label for="location" class="sr-only">Location</label>
-
-      <input
-        type="text"
-        id="location"
-        name="location"
-        class="form-control mb-4"
-        placeholder="Enter your postcode..."
-      />
+        <app-location-picker></app-location-picker>
+      </div>
     </div>
-  </div>
 
-  <div class="bg-light">
-    <div class="container py-5">
-      <h2 class="h3 mb-3 font-weight-normal">Preferred pace</h2>
+    <div class="bg-light">
+      <div class="container py-5">
+        <h2 class="h3 mb-3 font-weight-normal">Preferred pace</h2>
 
-      <div class="form-row mb-3">
-        <fieldset class="col-sm-2">
-          <legend class="h5">Fastest pace</legend>
+        <div class="form-row mb-3">
+          <fieldset class="col-sm-2">
+            <legend class="h5">Fastest pace</legend>
 
-          <label for="paceFromMinute" class="sr-only">Minutes</label>
+            <label for="paceFromMinute" class="sr-only">Minutes</label>
 
-          <select id="paceFromMinute" type="number" class="form-control">
-            <option *ngFor="let minute of minutes">{{ minute }} min</option>
-          </select>
-        </fieldset>
-        <div class="col-sm-2 seconds">
-          <label for="paceFromSecond" class="sr-only">Seconds</label>
-          <select id="paceFromSecond" type="number" class="form-control">
-            <option *ngFor="let second of seconds">{{ second }} sec</option>
-          </select>
+            <select id="paceFromMinute" type="number" class="form-control">
+              <option *ngFor="let minute of minutes">{{ minute }} min</option>
+            </select>
+          </fieldset>
+          <div class="col-sm-2 seconds">
+            <label for="paceFromSecond" class="sr-only">Seconds</label>
+            <select id="paceFromSecond" type="number" class="form-control">
+              <option *ngFor="let second of seconds">{{ second }} sec</option>
+            </select>
+          </div>
         </div>
-      </div>
 
-      <div class="form-row">
-        <fieldset class="col-sm-2">
-          <legend class="h5">Slowest pace</legend>
+        <div class="form-row">
+          <fieldset class="col-sm-2">
+            <legend class="h5">Slowest pace</legend>
 
-          <label for="paceToMinute" class="sr-only">Minutes</label>
+            <label for="paceToMinute" class="sr-only">Minutes</label>
 
-          <select id="paceToMinute" type="number" class="form-control">
-            <option *ngFor="let minute of minutes">{{ minute }} min</option>
-          </select>
-        </fieldset>
-        <div class="col-sm-2 seconds">
-          <label for="paceToSecond" class="sr-only">Seconds</label>
-          <select id="paceToSecond" type="number" class="form-control">
-            <option *ngFor="let second of seconds">{{ second }} sec</option>
-          </select>
+            <select id="paceToMinute" type="number" class="form-control">
+              <option *ngFor="let minute of minutes">{{ minute }} min</option>
+            </select>
+          </fieldset>
+          <div class="col-sm-2 seconds">
+            <label for="paceToSecond" class="sr-only">Seconds</label>
+            <select id="paceToSecond" type="number" class="form-control">
+              <option *ngFor="let second of seconds">{{ second }} sec</option>
+            </select>
+          </div>
         </div>
-      </div>
 
-      <div class="text-center">
-        <button class="btn btn-lg btn-dark mt-5" (click)="onSaveProfile()">
-          Save and continue
-        </button>
+        <div class="text-center">
+          <button class="btn btn-lg btn-dark mt-5" (click)="onSaveProfile()">
+            Save and continue
+          </button>
+        </div>
       </div>
     </div>
   </div>
 </ng-container>
-
-<pre>{{ user | json }}</pre>
-<pre>{{ loadingState | json }}</pre>

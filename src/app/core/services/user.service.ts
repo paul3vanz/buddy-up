@@ -15,7 +15,7 @@ export class UserService {
     firstName: "Paul",
     lastName: "Evans",
     gender: Gender.Male,
-    dateOfBirth: "1980-01-01",
+    dateOfBirth: "01-01-1980",
     location: null,
     email: "paul3vanz@gmail.com",
     clubId: null,

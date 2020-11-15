@@ -1,4 +1,5 @@
 <app-profile
+  [form]="form"
   [user]="user$ | async"
   [loadingState]="loadingState$ | async"
   (saveProfile)="onSaveProfile($event)"

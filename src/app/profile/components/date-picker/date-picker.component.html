@@ -1,0 +1,29 @@
+<label [attr.for]="id" class="sr-only">{{ label }} (DD/MM/YYYY)</label>
+
+<div class="input-group">
+  <input
+    [formControl]="control"
+    [minDate]="{ year: 1900, month: 1, day: 1 }"
+    [class.is-invalid]="control.invalid && this.showValidation"
+    [attr.id]="id"
+    [attr.name]="id"
+    [attr.placeholder]="label + ' (DD/MM/YYYY)'"
+    ngbDatepicker
+    #d="ngbDatepicker"
+    class="form-control"
+    type="text"
+  />
+  <div class="input-group-append">
+    <button
+      class="btn btn-outline-secondary calendar"
+      (click)="d.toggle()"
+      type="button"
+    >
+      <fa-icon [icon]="faCalendarAlt"></fa-icon>
+    </button>
+  </div>
+
+  <div class="invalid-feedback">
+    Please provide a valid {{ label | lowercase }}
+  </div>
+</div>

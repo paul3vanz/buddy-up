@@ -15,11 +15,18 @@ export class UserService {
     firstName: "Paul",
     lastName: "Evans",
     gender: Gender.Male,
-    dateOfBirth: "01-01-1980",
+    dateOfBirth: "1980-01-01",
     location: null,
     email: "paul3vanz@gmail.com",
-    clubId: null,
-    preferences: null,
+    clubId: 1606,
+    preferences: {
+      alerts: true,
+      location: null,
+      pace: {
+        from: 305,
+        to: 368,
+      },
+    },
   };
 
   private readonly _user = new BehaviorSubject<User>(null);

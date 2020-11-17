@@ -20,6 +20,12 @@ export class NgbDateParserFormatterService extends NgbDateParserFormatter {
   }
 
   format(date: NgbDateStruct | null): string {
-    return date ? `${date.day}/${date.month}/${date.year}` : "";
+    return date
+      ? `${this.padZero(date.day)}/${this.padZero(date.month)}/${date.year}`
+      : "";
+  }
+
+  private padZero(number: number) {
+    return number.toString().padStart(2, "0");
   }
 }

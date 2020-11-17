@@ -1,0 +1,14 @@
+<div class="container mt-4">
+  <ul class="nav nav-tabs">
+    <li *ngFor="let link of links" class="nav-item">
+      <a
+        class="nav-link text-secondary"
+        routerLink="/{{ link.link }}"
+        routerLinkActive="active"
+      >
+        <fa-icon [icon]="link.icon" class="pr-1"></fa-icon>
+        {{ link.title }}
+      </a>
+    </li>
+  </ul>
+</div>

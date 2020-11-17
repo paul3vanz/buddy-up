@@ -1,0 +1,35 @@
+<div class="form-row mb-3">
+  <fieldset class="col-sm-2">
+    <legend class="h5">{{ label }} {{ pace }}</legend>
+
+    <label for="minutes" class="sr-only">Minutes</label>
+
+    <select
+      id="minutes"
+      name="minutes"
+      type="number"
+      class="form-control"
+      [(ngModel)]="minutes"
+      (ngModelChange)="updatePace()"
+    >
+      <option *ngFor="let minute of minuteRange" [value]="minute">
+        {{ minute }} min
+      </option>
+    </select>
+  </fieldset>
+  <div class="col-sm-2 seconds">
+    <label for="seconds" class="sr-only">Seconds</label>
+    <select
+      id="seconds"
+      name="seconds"
+      type="number"
+      class="form-control"
+      [(ngModel)]="seconds"
+      (ngModelChange)="updatePace()"
+    >
+      <option *ngFor="let second of secondRange" [value]="second">
+        {{ second }} sec
+      </option>
+    </select>
+  </div>
+</div>

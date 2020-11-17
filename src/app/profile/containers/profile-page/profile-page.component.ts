@@ -1,8 +1,8 @@
 import { Component, OnInit } from "@angular/core";
+import { FormBuilder, Validators } from "@angular/forms";
 import { filter, take, tap } from "rxjs/operators";
 
 import { AuthService } from "src/app/core/services/auth.service";
-import { FormBuilder } from "@angular/forms";
 import { LoadingState } from "src/app/core/models/loading-state.model";
 import { Observable } from "rxjs";
 import { Router } from "@angular/router";
@@ -18,11 +18,31 @@ export class ProfilePageComponent implements OnInit {
   loadingState$: Observable<LoadingState>;
   user$: Observable<User>;
 
+  showValidation: boolean;
+
   form = this.formBuilder.group({
-    firstName: [],
-    lastName: [],
+    firstName: ["", Validators.required],
+    lastName: ["", Validators.required],
     gender: [],
-    dateOfBirth: [],
+    dateOfBirth: [
+      "",
+      [Validators.required, Validators.pattern(/^\d{2}\/\d{2}\/\d{4}$/)],
+    ],
+    clubId: [],
+    email: ["", Validators.required],
+    preferences: this.formBuilder.group({
+      activityType: [],
+      distance: this.formBuilder.group({
+        from: [],
+        to: [],
+      }),
+      pace: this.formBuilder.group({
+        from: [],
+        to: [],
+      }),
+      location: [],
+      alerts: [],
+    }),
   });
 
   constructor(
@@ -44,6 +64,14 @@ export class ProfilePageComponent implements OnInit {
           lastName: user.lastName,
           gender: user.gender,
           dateOfBirth: user.dateOfBirth,
+          clubId: user.clubId,
+          location: user.location,
+          preferences: {
+            pace: {
+              from: user.preferences.pace.from,
+              to: user.preferences.pace.to,
+            },
+          },
         });
       });
   }
@@ -53,6 +81,11 @@ export class ProfilePageComponent implements OnInit {
   }
 
   onSaveProfile(user: User) {
-    this.router.navigate(["/groups"]);
+    if (this.form.valid) {
+      this.showValidation = false;
+      this.router.navigate(["/groups"]);
+    } else {
+      this.showValidation = true;
+    }
   }
 }

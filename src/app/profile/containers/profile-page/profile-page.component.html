@@ -2,5 +2,8 @@
   [form]="form"
   [user]="user$ | async"
   [loadingState]="loadingState$ | async"
+  [showValidation]="showValidation"
   (saveProfile)="onSaveProfile($event)"
 ></app-profile>
+
+<pre>Form: {{ form.value | json }}</pre>

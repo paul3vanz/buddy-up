@@ -17,50 +17,33 @@
 
         <div class="form-row mb-2">
           <div class="col">
-            <label for="firstName" class="sr-only">First name</label>
-
-            <input
-              type="text"
+            <app-form-input
               id="firstName"
-              name="firstName"
-              class="form-control"
-              placeholder="First name"
-              formControlName="firstName"
-            />
+              label="First name"
+              [control]="form.controls.firstName"
+              [showValidation]="showValidation"
+            ></app-form-input>
           </div>
-          <div class="col">
-            <label for="lastName" class="sr-only">Last name</label>
 
-            <input
-              type="text"
+          <div class="col">
+            <app-form-input
               id="lastName"
-              name="lastName"
-              class="form-control"
-              placeholder="Last name"
-              formControlName="lastName"
-            />
+              label="Last name"
+              [control]="form.controls.lastName"
+              [showValidation]="showValidation"
+            ></app-form-input>
           </div>
         </div>
 
-        <label for="email" class="sr-only">Email address</label>
-
-        <input
-          type="text"
+        <app-form-input
           id="email"
-          name="email"
-          class="form-control mb-2"
-          placeholder="Email address"
-        />
+          label="Email address"
+          [control]="form.controls.email"
+          [showValidation]="showValidation"
+          class="mb-2"
+        ></app-form-input>
 
-        <label for="club" class="sr-only">Club (optional)</label>
-
-        <input
-          type="text"
-          id="club"
-          name="club"
-          class="form-control mb-2"
-          placeholder="Club (optional)"
-        />
+        <app-club-picker></app-club-picker>
 
         <div class="form-row">
           <div class="col">
@@ -80,30 +63,11 @@
           </div>
 
           <div class="col">
-            <label for="dob" class="sr-only">Date of birth</label>
-
-            <div class="input-group">
-              <input
-                type="text"
-                id="dob"
-                name="dob"
-                class="form-control"
-                placeholder="Date of birth (DD/MM/YYYY)"
-                ngbDatepicker
-                [minDate]="{ year: 1900, month: 1, day: 1 }"
-                #d="ngbDatepicker"
-                formControlName="dateOfBirth"
-              />
-              <div class="input-group-append">
-                <button
-                  class="btn btn-outline-secondary calendar"
-                  (click)="d.toggle()"
-                  type="button"
-                >
-                  <fa-icon [icon]="faCalendarAlt"></fa-icon>
-                </button>
-              </div>
-            </div>
+            <app-date-picker
+              [control]="form.controls.dateOfBirth"
+              label="Date of birth"
+              id="dateOfBirth"
+            ></app-date-picker>
           </div>
         </div>
       </div>
@@ -113,52 +77,40 @@
       <div class="container py-5">
         <h2 class="h3 mb-3 font-weight-normal text-light">Location</h2>
 
+        <p class="text-light">
+          Let us know your preferred location where you'd like to start your
+          activities.
+        </p>
+
         <app-location-picker></app-location-picker>
       </div>
     </div>
 
-    <div class="bg-light">
-      <div class="container py-5">
+    <div class="bg-light" formGroupName="preferences">
+      <div class="container py-5" formGroupName="pace">
         <h2 class="h3 mb-3 font-weight-normal">Preferred pace</h2>
 
-        <div class="form-row mb-3">
-          <fieldset class="col-sm-2">
-            <legend class="h5">Fastest pace</legend>
+        <p>
+          We'll use this to find suitable buddies for you and as the default if
+          you list any groups.
+        </p>
 
-            <label for="paceFromMinute" class="sr-only">Minutes</label>
+        <app-pace-selector
+          label="Fastest pace"
+          [pace]="this.form.get('preferences.pace.from').value"
+          (paceChange)="
+            this.form.get('preferences.pace.from').patchValue($event)
+          "
+        ></app-pace-selector>
 
-            <select id="paceFromMinute" type="number" class="form-control">
-              <option *ngFor="let minute of minutes">{{ minute }} min</option>
-            </select>
-          </fieldset>
-          <div class="col-sm-2 seconds">
-            <label for="paceFromSecond" class="sr-only">Seconds</label>
-            <select id="paceFromSecond" type="number" class="form-control">
-              <option *ngFor="let second of seconds">{{ second }} sec</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="form-row">
-          <fieldset class="col-sm-2">
-            <legend class="h5">Slowest pace</legend>
-
-            <label for="paceToMinute" class="sr-only">Minutes</label>
-
-            <select id="paceToMinute" type="number" class="form-control">
-              <option *ngFor="let minute of minutes">{{ minute }} min</option>
-            </select>
-          </fieldset>
-          <div class="col-sm-2 seconds">
-            <label for="paceToSecond" class="sr-only">Seconds</label>
-            <select id="paceToSecond" type="number" class="form-control">
-              <option *ngFor="let second of seconds">{{ second }} sec</option>
-            </select>
-          </div>
-        </div>
+        <app-pace-selector
+          label="Slowest pace"
+          [pace]="this.form.get('preferences.pace.to').value"
+          (paceChange)="this.form.get('preferences.pace.to').patchValue($event)"
+        ></app-pace-selector>
 
         <div class="text-center">
-          <button class="btn btn-lg btn-dark mt-5" (click)="onSaveProfile()">
+          <button class="btn btn-lg btn-primary mt-5" (click)="onSaveProfile()">
             Save and continue
           </button>
         </div>

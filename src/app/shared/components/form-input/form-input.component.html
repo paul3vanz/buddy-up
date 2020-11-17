@@ -1,0 +1,17 @@
+<div class="input-group">
+  <label [attr.for]="id" class="sr-only">{{ label }}</label>
+
+  <input
+    [formControl]="control"
+    [class.is-invalid]="control.invalid && this.showValidation"
+    [attr.id]="id"
+    [attr.name]="id"
+    [attr.placeholder]="label"
+    class="form-control"
+    type="text"
+  />
+
+  <div class="invalid-feedback">
+    Please provide a valid {{ label | lowercase }}
+  </div>
+</div>

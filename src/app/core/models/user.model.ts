@@ -9,7 +9,7 @@ export interface User {
   gender: Gender;
   dateOfBirth: string;
   email: string;
-  clubId: string;
+  clubId: number;
   location: Location;
   preferences: Preferences;
 }

@@ -5,7 +5,7 @@ import { Range } from "./range.model";
 export interface Preferences {
   activityType?: ActivityType;
   distance?: Range<number>;
-  pace: Range<Pace>;
+  pace: Range<number>;
   location: Location;
   alerts: boolean;
 }

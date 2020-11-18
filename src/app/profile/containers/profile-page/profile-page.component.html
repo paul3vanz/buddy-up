@@ -6,6 +6,4 @@
   (saveProfile)="onSaveProfile($event)"
 ></app-profile>
 
-<div class="container py-5">
-  <pre class="bg-dark text-light p-5">Form: {{ form.value | json }}</pre>
-</div>
+<app-debug>Form: {{ form.value | json }}</app-debug>

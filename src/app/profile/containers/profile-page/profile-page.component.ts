@@ -8,6 +8,8 @@ import { Observable } from "rxjs";
 import { Router } from "@angular/router";
 import { User } from "src/app/core/models/user.model";
 import { UserService } from "src/app/core/services/user.service";
+import { WindowService } from "src/app/core/services/window.service";
+import { appConstants } from "src/app/app.constants";
 
 @Component({
   selector: "app-profile-page",
@@ -41,8 +43,8 @@ export class ProfilePageComponent implements OnInit {
         to: [],
       }),
       location: [],
-      alerts: [],
-      radius: [null, Validators.max(9999)],
+      alerts: [true],
+      radius: [appConstants.DEFAULT_RADIUS, Validators.max(9999)],
     }),
   });
 
@@ -50,7 +52,8 @@ export class ProfilePageComponent implements OnInit {
     private authService: AuthService,
     private formBuilder: FormBuilder,
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
+    private windowService: WindowService
   ) {
     this.loadingState$ = this.userService.loadingState$;
 
@@ -87,6 +90,7 @@ export class ProfilePageComponent implements OnInit {
       this.router.navigate(["/groups"]);
     } else {
       this.showValidation = true;
+      this.windowService.scrollToFirstError();
     }
   }
 }

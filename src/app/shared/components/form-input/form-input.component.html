@@ -1,4 +1,6 @@
 <div class="input-group">
+  <ng-content select="[prepend]"></ng-content>
+
   <label [attr.for]="id" class="sr-only">{{ label }}</label>
 
   <input
@@ -6,10 +8,12 @@
     [class.is-invalid]="control.invalid && this.showValidation"
     [attr.id]="id"
     [attr.name]="id"
-    [attr.placeholder]="label"
+    [attr.placeholder]="placeholder || label"
     class="form-control"
     type="text"
   />
+
+  <ng-content select="[append]"></ng-content>
 
   <div class="invalid-feedback">
     Please provide a valid {{ label | lowercase }}

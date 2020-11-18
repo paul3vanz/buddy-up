@@ -6,6 +6,8 @@ import {
   OnInit,
 } from "@angular/core";
 
+import { label } from "aws-amplify";
+
 @Component({
   selector: "app-form-input",
   templateUrl: "./form-input.component.html",
@@ -17,6 +19,7 @@ export class FormInputComponent implements OnInit {
   @Input() label: string;
   @Input() control: AbstractControl;
   @Input() showValidation: boolean;
+  @Input() placeholder: string;
 
   constructor() {}
 

@@ -83,7 +83,9 @@
           activities.
         </p>
 
-        <app-location-picker></app-location-picker>
+        <app-location-picker
+          [control]="form.get('preferences.location')"
+        ></app-location-picker>
       </div>
     </div>
 
@@ -98,16 +100,14 @@
 
         <app-pace-selector
           label="Fastest pace"
-          [pace]="this.form.get('preferences.pace.from').value"
-          (paceChange)="
-            this.form.get('preferences.pace.from').patchValue($event)
-          "
+          [pace]="form.get('preferences.pace.from').value"
+          (paceChange)="form.get('preferences.pace.from').patchValue($event)"
         ></app-pace-selector>
 
         <app-pace-selector
           label="Slowest pace"
-          [pace]="this.form.get('preferences.pace.to').value"
-          (paceChange)="this.form.get('preferences.pace.to').patchValue($event)"
+          [pace]="form.get('preferences.pace.to').value"
+          (paceChange)="form.get('preferences.pace.to').patchValue($event)"
         ></app-pace-selector>
       </div>
     </div>
@@ -115,7 +115,7 @@
     <div class="container py-5" formGroupName="preferences">
       <h2 class="h3 mb-3 font-weight-normal">Alerts</h2>
 
-      <div class="custom-control custom-checkbox">
+      <div class="custom-control custom-switch">
         <input
           type="checkbox"
           class="custom-control-input"
@@ -123,13 +123,27 @@
           formControlName="alerts"
         />
         <label class="custom-control-label" for="customCheck1"
-          >Let me know when there's a suitable group added</label
+          >Tell me when there's a suitable group added</label
         >
       </div>
 
-      <h3 *ngIf="form.get('preferences.radius').value">
-        Maximum distance (miles)
-      </h3>
+      <div class="form-row" *ngIf="form.get('preferences.alerts').value">
+        <div class="col-auto">
+          <h3 class="h5 mt-3">Within</h3>
+          <app-form-input
+            id="radius"
+            label="Radius"
+            [control]="form.get('preferences.radius')"
+            [showValidation]="showValidation"
+            placeholder="Enter number..."
+            class="mb-2"
+          >
+            <div append class="input-group-append">
+              <div class="input-group-text">miles</div>
+            </div>
+          </app-form-input>
+        </div>
+      </div>
 
       <div class="text-center">
         <button class="btn btn-lg btn-primary mt-5" (click)="onSaveProfile()">

@@ -4,12 +4,12 @@
   type="text"
   id="location"
   name="location"
-  class="form-control mb-2"
+  class="form-control"
   placeholder="Enter your postcode..."
-  [value]="location?.displayName"
+  [formControl]="control"
 />
 
-<p class="mb-4">
+<p class="mt-2 d-none">
   <button (click)="useCurrentLocationClick()" class="btn btn-outline-light">
     <fa-icon [icon]="faLocationArrow" class="pr-1"></fa-icon>
     Use my current location

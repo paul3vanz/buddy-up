@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from "@angular/core";
 
+import { AbstractControl } from "@angular/forms";
 import { Location } from "src/app/core/models/location.model";
 import { LocationService } from "src/app/core/services/location.service";
 import { faLocationArrow } from "@fortawesome/free-solid-svg-icons";
@@ -14,6 +15,7 @@ export class LocationPickerComponent implements OnInit {
   faLocationArrow = faLocationArrow;
 
   @Input() location: Location;
+  @Input() control: AbstractControl;
 
   ngOnInit(): void {}
 

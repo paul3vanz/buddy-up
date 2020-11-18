@@ -29,7 +29,7 @@ export class UserService {
         from: 305,
         to: 368,
       },
-      radius: 5,
+      radius: 10,
     },
   };
 

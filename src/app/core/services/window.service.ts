@@ -21,21 +21,31 @@ export class WindowService {
     setTimeout(() => this.window.scrollTo(0, 0), this.scrollLockingDelay);
   }
 
-  scrollToElement(htmlElement: HTMLElement): void {
-    setTimeout(
-      () => htmlElement.scrollIntoView({ behavior: "smooth", block: "start" }),
-      this.scrollLockingDelay
-    );
+  scrollToElement(htmlElement: HTMLElement, offset?: number): void {
+    setTimeout(() => {
+      const position = htmlElement.style.position;
+      const top = htmlElement.style.top;
+
+      if (offset) {
+        htmlElement.style.position = "relative";
+        htmlElement.style.top = `${offset}px`;
+      }
+
+      htmlElement.scrollIntoView({ behavior: "smooth", block: "start" });
+
+      if (offset) {
+        htmlElement.style.position = position;
+        htmlElement.style.top = top;
+      }
+    }, this.scrollLockingDelay);
   }
 
   scrollToFirstError(): void {
     setTimeout(() => {
-      const htmlElement: HTMLElement = document
-        .querySelector(".is-invalid")
-        .closest(".container");
+      const htmlElement: HTMLElement = document.querySelector(".is-invalid");
 
       if (htmlElement) {
-        this.scrollToElement(htmlElement);
+        this.scrollToElement(htmlElement, -40);
       }
     });
   }

@@ -1,9 +1,8 @@
-import * as appConstants from "../../app.constants";
-
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Location } from "../models/location.model";
 import { Observable } from "rxjs";
+import { appConstants } from "../../app.constants";
 
 @Injectable()
 export class LocationService {

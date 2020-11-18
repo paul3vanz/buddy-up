@@ -11,6 +11,7 @@ import { ClubPickerComponent } from "./containers/club-picker/club-picker.compon
 import { ClubsService } from "../core/services/clubs.service";
 import { CommonModule } from "@angular/common";
 import { DatePickerComponent } from "./components/date-picker/date-picker.component";
+import { DebugComponent } from "../shared/components/debug/debug.component";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { FormInputComponent } from "../shared/components/form-input/form-input.component";
 import { HttpClientModule } from "@angular/common/http";
@@ -42,6 +43,7 @@ const routes = [
     ClubPickerComponent,
     FormInputComponent,
     DatePickerComponent,
+    DebugComponent,
   ],
   imports: [
     CommonModule,

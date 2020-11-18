@@ -28,8 +28,8 @@ export class ProfilePageComponent implements OnInit {
       "",
       [Validators.required, Validators.pattern(/^\d{4}-\d{2}-\d{2}$/)],
     ],
-    clubId: [],
-    email: ["", Validators.required],
+    club: [],
+    email: ["", [Validators.required, Validators.email]],
     preferences: this.formBuilder.group({
       activityType: [],
       distance: this.formBuilder.group({
@@ -42,6 +42,7 @@ export class ProfilePageComponent implements OnInit {
       }),
       location: [],
       alerts: [],
+      radius: [null, Validators.max(9999)],
     }),
   });
 
@@ -64,7 +65,7 @@ export class ProfilePageComponent implements OnInit {
           lastName: user.lastName,
           gender: user.gender,
           dateOfBirth: user.dateOfBirth,
-          clubId: user.clubId,
+          club: user.club,
           location: user.location,
           preferences: {
             pace: {

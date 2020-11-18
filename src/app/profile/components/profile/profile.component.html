@@ -43,7 +43,7 @@
           class="mb-2"
         ></app-form-input>
 
-        <app-club-picker></app-club-picker>
+        <app-club-picker [control]="form.controls.club"></app-club-picker>
 
         <div class="form-row">
           <div class="col">
@@ -109,12 +109,32 @@
           [pace]="this.form.get('preferences.pace.to').value"
           (paceChange)="this.form.get('preferences.pace.to').patchValue($event)"
         ></app-pace-selector>
+      </div>
+    </div>
 
-        <div class="text-center">
-          <button class="btn btn-lg btn-primary mt-5" (click)="onSaveProfile()">
-            Save and continue
-          </button>
-        </div>
+    <div class="container py-5" formGroupName="preferences">
+      <h2 class="h3 mb-3 font-weight-normal">Alerts</h2>
+
+      <div class="custom-control custom-checkbox">
+        <input
+          type="checkbox"
+          class="custom-control-input"
+          id="customCheck1"
+          formControlName="alerts"
+        />
+        <label class="custom-control-label" for="customCheck1"
+          >Let me know when there's a suitable group added</label
+        >
+      </div>
+
+      <h3 *ngIf="form.get('preferences.radius').value">
+        Maximum distance (miles)
+      </h3>
+
+      <div class="text-center">
+        <button class="btn btn-lg btn-primary mt-5" (click)="onSaveProfile()">
+          Save and continue
+        </button>
       </div>
     </div>
   </div>

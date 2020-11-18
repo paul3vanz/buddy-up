@@ -9,6 +9,7 @@ import { HeaderComponent } from "./shared/components/header/header.component";
 import { HttpClientModule } from "@angular/common/http";
 import { NgModule } from "@angular/core";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { PageLoaderComponent } from "./shared/components/page-loader/page-loader.component";
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
     HeaderComponent,
     FooterComponent,
     AccountNavigationComponent,
+    PageLoaderComponent,
   ],
   imports: [
     BrowserModule,

@@ -8,4 +8,5 @@ export interface Preferences {
   pace: Range<number>;
   location: Location;
   alerts: boolean;
+  radius: number;
 }

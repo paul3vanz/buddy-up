@@ -23,6 +23,7 @@ import { PaceSelectorComponent } from "../shared/components/pace-selector/pace-s
 import { ProfileComponent } from "./components/profile/profile.component";
 import { ProfilePageComponent } from "./containers/profile-page/profile-page.component";
 import { RouterModule } from "@angular/router";
+import { WindowService } from "../core/services/window.service";
 
 const routes = [
   {
@@ -57,6 +58,7 @@ const routes = [
     AuthGuard,
     ClubsService,
     LocationService,
+    WindowService,
     {
       provide: NgbDateParserFormatter,
       useClass: NgbDateParserFormatterService,

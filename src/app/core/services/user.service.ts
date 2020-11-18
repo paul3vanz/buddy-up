@@ -18,7 +18,10 @@ export class UserService {
     dateOfBirth: "1980-01-01",
     location: null,
     email: "paul3vanz@gmail.com",
-    clubId: 1606,
+    club: {
+      id: 1606,
+      name: "Black Pear Joggers",
+    },
     preferences: {
       alerts: true,
       location: null,
@@ -26,6 +29,7 @@ export class UserService {
         from: 305,
         to: 368,
       },
+      radius: 5,
     },
   };
 

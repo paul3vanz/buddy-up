@@ -1,3 +1,4 @@
+import { Club } from "./club.model";
 import { Gender } from "../enums/gender.enum";
 import { Location } from "./location.model";
 import { Preferences } from "./preferences.model";
@@ -9,7 +10,7 @@ export interface User {
   gender: Gender;
   dateOfBirth: string;
   email: string;
-  clubId: number;
+  club: Club;
   location: Location;
   preferences: Preferences;
 }

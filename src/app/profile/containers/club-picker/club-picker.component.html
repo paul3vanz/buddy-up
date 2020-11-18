@@ -7,9 +7,9 @@
   class="form-control mb-2"
   placeholder="Club (optional)"
   id="typeahead-focus"
-  [(ngModel)]="model"
   [ngbTypeahead]="search"
   [inputFormatter]="formatter"
   [resultFormatter]="formatter"
+  [formControl]="control"
   #instance="ngbTypeahead"
 />

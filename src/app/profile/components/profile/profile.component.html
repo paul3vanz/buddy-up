@@ -38,6 +38,7 @@
         <app-form-input
           id="email"
           label="Email address"
+          type="email"
           [control]="form.controls.email"
           [showValidation]="showValidation"
           class="mb-2"
@@ -133,6 +134,7 @@
           <app-form-input
             id="radius"
             label="Radius"
+            type="number"
             [control]="form.get('preferences.radius')"
             [showValidation]="showValidation"
             placeholder="Enter number..."

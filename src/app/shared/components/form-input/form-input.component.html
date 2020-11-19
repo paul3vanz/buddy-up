@@ -10,7 +10,7 @@
     [attr.name]="id"
     [attr.placeholder]="placeholder || label"
     class="form-control"
-    type="text"
+    [type]="type"
   />
 
   <ng-content select="[append]"></ng-content>

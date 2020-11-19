@@ -22,7 +22,15 @@ export class NgbCustomDateAdaptorService extends NgbDateAdapter<string> {
 
   toModel(date: NgbDateStruct | null): string | null {
     return date
-      ? date.year + this.DELIMITER + date.month + this.DELIMITER + date.day
+      ? date.year +
+          this.DELIMITER +
+          this.padZero(date.month) +
+          this.DELIMITER +
+          this.padZero(date.day)
       : null;
+  }
+
+  private padZero(number: number) {
+    return number.toString().padStart(2, "0");
   }
 }

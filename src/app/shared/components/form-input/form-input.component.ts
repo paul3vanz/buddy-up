@@ -20,6 +20,7 @@ export class FormInputComponent implements OnInit {
   @Input() control: AbstractControl;
   @Input() showValidation: boolean;
   @Input() placeholder: string;
+  @Input() type = "text";
 
   constructor() {}
 

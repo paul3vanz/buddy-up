@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from "@angular/forms";
 import { filter, take, tap } from "rxjs/operators";
 
 import { AuthService } from "src/app/core/services/auth.service";
+import { CustomValidators } from "src/app/core/validators/required-if.validator";
 import { LoadingState } from "src/app/core/models/loading-state.model";
 import { Observable } from "rxjs";
 import { Router } from "@angular/router";
@@ -44,7 +45,16 @@ export class ProfilePageComponent implements OnInit {
       }),
       location: [],
       alerts: [true],
-      radius: [appConstants.DEFAULT_RADIUS, Validators.max(9999)],
+      radius: [
+        appConstants.DEFAULT_RADIUS,
+        [
+          CustomValidators.validateIf(() => {
+            console.log(this.form?.value);
+            return this.form && this.form.value.preferences.alerts;
+          }, [Validators.required]),
+          Validators.max(9999),
+        ],
+      ],
     }),
   });
 

@@ -49,7 +49,6 @@ export class ProfilePageComponent implements OnInit {
         appConstants.DEFAULT_RADIUS,
         [
           CustomValidators.validateIf(() => {
-            console.log(this.form?.value);
             return this.form && this.form.value.preferences.alerts;
           }, [Validators.required]),
           Validators.max(9999),
@@ -91,7 +90,7 @@ export class ProfilePageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userService.loadUser(this.authService.account.userId);
+    this.userService.getUser(this.authService.account.userId);
   }
 
   onSaveProfile(user: User) {

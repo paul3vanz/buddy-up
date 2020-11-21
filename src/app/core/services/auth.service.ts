@@ -22,6 +22,8 @@ export class AuthService {
   }
 
   set account(account: Account) {
+    console.log("set account", account);
+
     this._account.next(account);
   }
 

@@ -32,10 +32,11 @@ export class LocationPickerComponent implements OnInit {
           .subscribe((address) => {
             console.log(address);
             this.location = {
-              displayName: address.results[0].formatted_address,
+              id: null,
+              name: address.results[0].formatted_address,
               latitude: location.latitude,
               longitude: location.longitude,
-              postcode: address.results
+              address: address.results
                 .find((result) => result.types.includes("route"))
                 .address_components.find((component) =>
                   component.types.includes("postal_code")

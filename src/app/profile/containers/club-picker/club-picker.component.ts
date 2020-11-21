@@ -36,8 +36,6 @@ export class ClubPickerComponent implements OnInit {
   click$ = new Subject<string>();
 
   search = (text$: Observable<string>) => {
-    console.log("test");
-
     const debouncedText$ = text$.pipe(
       debounceTime(200),
       distinctUntilChanged()

@@ -1,6 +1,7 @@
 export interface Location {
-  displayName: string;
+  id: string;
   latitude: number;
   longitude: number;
-  postcode?: string;
+  name: string;
+  address: string;
 }

@@ -16,7 +16,6 @@ export class PaceSelectorComponent {
   @Input() label: string;
 
   @Input() set pace(pace: number) {
-    console.log("set", pace);
     this.minutes = (pace / 60) | 0;
     this.seconds = pace % 60;
   }

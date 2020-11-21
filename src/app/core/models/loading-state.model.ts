@@ -1,3 +1,5 @@
+import { ErrorCode } from "../enums/error-code.enum";
+
 export enum LoadingStates {
   INIT = "INIT",
   LOADING = "LOADING",
@@ -5,12 +7,12 @@ export enum LoadingStates {
 }
 
 export interface ErrorState {
-  error: string;
+  error: string | ErrorCode;
 }
 
 export type LoadingState = LoadingStates | ErrorState;
 
-export function getError(callState: LoadingState): string | null {
+export function getError(callState: LoadingState): ErrorCode | string | null {
   if ((callState as ErrorState).error !== undefined) {
     return (callState as ErrorState).error;
   }

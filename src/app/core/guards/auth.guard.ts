@@ -1,5 +1,5 @@
 import { CanActivate, CanActivateChild, Router } from "@angular/router";
-import { map, skipWhile, withLatestFrom } from "rxjs/operators";
+import { map, skipWhile, take, withLatestFrom } from "rxjs/operators";
 
 import { AuthService } from "../services/auth.service";
 import { Injectable } from "@angular/core";
@@ -14,7 +14,8 @@ export class AuthGuard implements CanActivate, CanActivateChild {
     return this.authService.account$.pipe(
       withLatestFrom(this.authService.loadingState$),
       skipWhile(
-        ([account, loading]) => loading === LoadingStates.LOADING && !account
+        ([account, loadingState]) =>
+          loadingState === LoadingStates.LOADING && !account
       ),
       map(([account]) => {
         if (account?.userId) {

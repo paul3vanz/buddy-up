@@ -1,37 +1,38 @@
 import { BehaviorSubject, of } from "rxjs";
 import { LoadingState, LoadingStates } from "../models/loading-state.model";
 
+import { APIService } from "src/app/API.service";
+import { ErrorCode } from "../enums/error-code.enum";
 import { Gender } from "../enums/gender.enum";
 import { Injectable } from "@angular/core";
 import { User } from "../models/user.model";
-import { delay } from "rxjs/operators";
 
 @Injectable({
   providedIn: "root",
 })
 export class UserService {
-  mockUser: User = {
-    id: "abc123",
-    firstName: "Paul",
-    lastName: "Evans",
-    gender: Gender.Male,
-    dateOfBirth: "1980-01-01",
-    location: null,
-    email: "paul3vanz@gmail.com",
-    club: {
-      id: 1606,
-      name: "Black Pear Joggers",
-    },
-    preferences: {
-      alerts: true,
-      location: null,
-      pace: {
-        from: 305,
-        to: 368,
-      },
-      radius: 10,
-    },
-  };
+  // mockUser: User = {
+  //   id: "493969ca-a59a-481c-99a0-c922a6325c5d",
+  //   firstName: "Paul",
+  //   lastName: "Evans",
+  //   gender: Gender.Male,
+  //   dateOfBirth: "1980-01-01",
+  //   location: null,
+  //   email: "paul3vanz@gmail.com",
+  //   club: {
+  //     id: "1606",
+  //     name: "Black Pear Joggers",
+  //   },
+  //   preferences: {
+  //     alerts: true,
+  //     location: null,
+  //     pace: {
+  //       from: 305,
+  //       to: 368,
+  //     },
+  //     radius: 10,
+  //   },
+  // };
 
   private readonly _user = new BehaviorSubject<User>(null);
   private readonly _loadingState = new BehaviorSubject<LoadingState>(
@@ -46,6 +47,8 @@ export class UserService {
   }
 
   set user(user: User) {
+    console.log("set user", user);
+
     this._user.next(user);
   }
 
@@ -57,18 +60,41 @@ export class UserService {
     this._loadingState.next(loadingState);
   }
 
-  loadUser(userId: string): void {
+  getUser(userId: string): void {
     this.loadingState = LoadingStates.LOADING;
 
-    of(this.mockUser)
-      .pipe(delay(1000))
-      .subscribe((user) => {
+    this.apiService.GetUser(userId).then((user) => {
+      if (user) {
         this.loadingState = LoadingStates.LOADED;
-        this.user = user;
-      });
+        this.user = {
+          id: user.id,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          gender: user.gender as Gender,
+          dateOfBirth: user.dateOfBirth,
+          email: user.email,
+          club: user.club,
+          location: user.location,
+          preferences: null,
+          // user.
+        };
+      } else {
+        this.loadingState = { error: ErrorCode.USER_NOT_FOUND };
+        this.user = null;
+      }
+    });
+
+    this.loadingState = LoadingStates.LOADED;
+    // this.user = user as User;
+  }
+
+  createUser(user: User) {
+    // this.apiService.CreateUser({});
   }
 
   updateUser(user: User) {}
 
   deleteUser(userId: string): void {}
+
+  constructor(private apiService: APIService) {}
 }

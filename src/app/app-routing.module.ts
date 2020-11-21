@@ -23,7 +23,7 @@ const routes: Routes = [
     loadChildren: () =>
       import("./members/members.module").then((m) => m.MembersModule),
   },
-  { path: "", pathMatch: "full", redirectTo: "login" },
+  { path: "", pathMatch: "full", redirectTo: "groups" },
 ];
 
 @NgModule({

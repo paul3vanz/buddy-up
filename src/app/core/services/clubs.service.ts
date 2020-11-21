@@ -46,7 +46,7 @@ export class ClubsService {
       .subscribe((clubsResponse) => {
         this.loadingState = LoadingStates.LOADED;
         this.clubs = clubsResponse.Clubs.map((club) => ({
-          id: Number(club.ClubId),
+          id: club.ClubId,
           name: club.ClubName,
         }));
       });
